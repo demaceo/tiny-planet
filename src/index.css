@@ -1,0 +1,221 @@
+:root {
+  --tp-bg: #cfe7e6;
+  --tp-accent: #e8643c;
+  --tp-ink: #4a3a26;
+  --tp-ink-soft: #a8916f;
+  --tp-val: #c9502f;
+  --tp-glass: rgba(255, 247, 232, 0.62);
+  --tp-glass-soft: rgba(255, 247, 232, 0.55);
+  --tp-cream: #fff8ec;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--tp-bg);
+  font-family: 'Quicksand', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- 3D mount: the engine appends its <canvas> here --- */
+.tp-mount {
+  position: fixed;
+  inset: 0;
+  animation: tp-fade 1000ms ease both;
+}
+.tp-mount canvas {
+  display: block;
+  touch-action: none;
+  cursor: grab;
+}
+.tp-mount canvas:active { cursor: grabbing; }
+
+/* --- overlay: chrome sits above the canvas, click-through except on controls --- */
+.tp-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.tp-title {
+  position: absolute;
+  top: 8vh;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  animation: tp-fade 1100ms ease 200ms both;
+}
+.tp-title h1 {
+  margin: 0;
+  font-family: 'Baloo 2', ui-rounded, sans-serif;
+  font-weight: 700;
+  font-size: clamp(38px, 6vw, 64px);
+  color: var(--tp-cream);
+  text-shadow: 0 3px 18px rgba(40, 30, 10, 0.4), 0 1px 0 rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.3px;
+}
+.tp-title p {
+  margin: 8px 0 0;
+  font-weight: 600;
+  font-size: clamp(14px, 1.7vw, 18px);
+  color: var(--tp-cream);
+  text-shadow: 0 2px 10px rgba(40, 30, 10, 0.35);
+  opacity: 0.92;
+}
+
+.tp-credit {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--tp-glass-soft);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--tp-ink);
+  white-space: nowrap;
+}
+
+.tp-hint {
+  position: absolute;
+  bottom: 26px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  color: #2f4a3a;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+  transition: opacity 500ms ease;
+}
+
+/* --- controls --- */
+.tp-toggle {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  background: var(--tp-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 34px rgba(60, 40, 20, 0.18);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tp-ink);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.tp-panel {
+  position: absolute;
+  bottom: 76px;
+  left: 18px;
+  width: 238px;
+  padding: 16px 16px 14px;
+  border-radius: 22px;
+  background: var(--tp-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 34px rgba(60, 40, 20, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  pointer-events: auto;
+  animation: tp-pop 200ms ease both;
+}
+.tp-panel-hd {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tp-ink-soft);
+  margin-bottom: 12px;
+}
+.tp-row { margin: 11px 0; }
+.tp-row:first-of-type { margin-top: 0; }
+.tp-lbl {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.tp-lbl label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tp-ink);
+  white-space: nowrap;
+}
+.tp-val {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tp-val);
+  font-variant-numeric: tabular-nums;
+}
+.tp-hint-sm {
+  font-size: 10.5px;
+  color: var(--tp-ink-soft);
+  margin-top: 4px;
+}
+.tp-panel input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  accent-color: var(--tp-accent);
+}
+.tp-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--tp-ink);
+  cursor: pointer;
+}
+.tp-check input {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  accent-color: var(--tp-accent);
+}
+
+/* --- d-pad (touch) --- */
+.tp-dpad {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 7px;
+  pointer-events: auto;
+}
+.tp-dpad button {
+  border: none;
+  border-radius: 50%;
+  font-size: 17px;
+  color: var(--tp-ink);
+  background: rgba(255, 247, 232, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  touch-action: none;
+}
+.tp-dpad button:active { background: rgba(232, 100, 60, 0.45); }
+
+@keyframes tp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes tp-pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-mount, .tp-title, .tp-panel { animation: none; }
+  .tp-hint { transition: none; }
+}
