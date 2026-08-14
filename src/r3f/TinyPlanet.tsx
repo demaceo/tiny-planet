@@ -1,6 +1,7 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Scene } from './Scene';
+import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 import { createInputState, type Controls } from './state';
 import {
   DEFAULT_CAMERA_DISTANCE,
@@ -36,27 +37,6 @@ export interface TinyPlanetProps {
 export interface TinyPlanetHandle {
   /** Set a movement flag, for on-screen controls. Keyboard writes the same flags. */
   press(dir: Dir, down: boolean): void;
-}
-
-/** Tracks the OS reduced-motion setting, resolved on the client only. */
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(
-    () =>
-      typeof window !== 'undefined' &&
-      typeof window.matchMedia === 'function' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  );
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return;
-    const query = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => setReduced(query.matches);
-    sync();
-    query.addEventListener('change', sync);
-    return () => query.removeEventListener('change', sync);
-  }, []);
-
-  return reduced;
 }
 
 export const TinyPlanet = forwardRef<TinyPlanetHandle, TinyPlanetProps>(function TinyPlanet(

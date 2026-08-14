@@ -1,4 +1,5 @@
-import type { Dir } from '../world/engine';
+import type { Dir } from '../world/constants';
+import styles from './TinyPlanet.module.css';
 
 type Props = {
   onPress: (dir: Dir, down: boolean) => void;
@@ -11,9 +12,10 @@ const BUTTONS: { dir: Dir; label: string; area: string; glyph: string }[] = [
   { dir: 'b', label: 'Walk backward', area: '3 / 2', glyph: '▼' },
 ];
 
+/** Touch equivalent of WASD — writes the same movement flags the keyboard does. */
 export function Dpad({ onPress }: Props) {
   return (
-    <div className="tp-dpad">
+    <div className={styles.dpad}>
       {BUTTONS.map((b) => (
         <button
           key={b.dir}
