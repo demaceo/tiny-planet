@@ -42,7 +42,7 @@ function House({ spec }: { spec: HouseSpec }) {
   const frame = m.lit('#6a5138');
   // The one emissive material in the village: cool glass by day, warm lamplight
   // after dusk, blended entirely by the uGlow uniform.
-  const window = m.glow('#bfe6ef', '#ffdf8a');
+  const windowMat = m.glow('#bfe6ef', '#ffdf8a');
   const winX = w / 2 - 0.55;
 
   return (
@@ -58,9 +58,9 @@ function House({ spec }: { spec: HouseSpec }) {
       <mesh geometry={geo.box(0.5, 0.9, 0.1)} material={m.lit('#5a3a2a')} position={[0, 0.45, dp / 2 + 0.02]} />
 
       <mesh geometry={geo.box(0.58, 0.58, 0.06)} material={frame} position={[winX, hh * 0.6, dp / 2 + 0.01]} />
-      <mesh geometry={geo.box(0.42, 0.42, 0.08)} material={window} position={[winX, hh * 0.6, dp / 2 + 0.03]} />
+      <mesh geometry={geo.box(0.42, 0.42, 0.08)} material={windowMat} position={[winX, hh * 0.6, dp / 2 + 0.03]} />
       <mesh geometry={geo.box(0.58, 0.58, 0.06)} material={frame} position={[-winX, hh * 0.6, dp / 2 + 0.01]} />
-      <mesh geometry={geo.box(0.42, 0.42, 0.08)} material={window} position={[-winX, hh * 0.6, dp / 2 + 0.03]} />
+      <mesh geometry={geo.box(0.42, 0.42, 0.08)} material={windowMat} position={[-winX, hh * 0.6, dp / 2 + 0.03]} />
 
       <mesh
         geometry={geo.box(0.3, 0.7, 0.3)}
