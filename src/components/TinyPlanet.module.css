@@ -267,4 +267,16 @@
     grid-template-columns: repeat(3, 42px);
     grid-template-rows: repeat(3, 42px);
   }
+  /* Centred and nowrap, the hint runs straight through the Controls button and
+     the d-pad at this width. Tuck it above the button on the left instead, and
+     cap its width so it stops short of the d-pad column. */
+  .hint {
+    left: 18px;
+    bottom: 64px;
+    transform: none;
+    text-align: left;
+    white-space: normal;
+    max-width: calc(100% - 190px);
+    line-height: 1.35;
+  }
 }

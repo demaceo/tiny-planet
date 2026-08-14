@@ -19,8 +19,9 @@ export function Overlay({ hintVisible, title, subtitle, credit }: Props) {
 
       {credit && <div className={styles.credit}>{credit}</div>}
 
+      {/* Device-neutral wording: this renders on touch as well, where WASD means nothing. */}
       <div className={styles.hint} style={{ opacity: hintVisible ? 1 : 0 }}>
-        drag to look around · WASD to walk
+        drag to look around · d-pad or WASD to walk
       </div>
     </>
   );
