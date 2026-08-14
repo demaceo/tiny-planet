@@ -6,7 +6,8 @@
   "description": "A curved tiny-planet world rendered in the browser with Three.js and React.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "verify:shaders": "node scripts/verify-shaders.mjs",
+    "build": "npm run verify:shaders && tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
