@@ -6,17 +6,20 @@
   "description": "A curved tiny-planet world rendered in the browser with Three.js and React.",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build",
+    "verify:shaders": "node scripts/verify-shaders.mjs",
+    "build": "npm run verify:shaders && tsc --noEmit && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "@react-three/drei": "^10.7.8",
+    "@react-three/fiber": "^9.7.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "three": "^0.169.0"
   },
   "devDependencies": {
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
     "typescript": "^5.6.3",
     "vite": "^5.4.10"

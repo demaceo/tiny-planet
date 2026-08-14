@@ -1,19 +1,27 @@
+import styles from './TinyPlanet.module.css';
+
 type Props = {
   hintVisible: boolean;
+  title?: string;
+  subtitle?: string;
+  credit?: string;
 };
 
-export function Overlay({ hintVisible }: Props) {
+export function Overlay({ hintVisible, title, subtitle, credit }: Props) {
   return (
     <>
-      <div className="tp-title">
-        <h1>Tiny Planet</h1>
-        <p>Drag to spin a tiny hand-built world.</p>
-      </div>
+      {(title || subtitle) && (
+        <div className={styles.title}>
+          {title && <h1>{title}</h1>}
+          {subtitle && <p>{subtitle}</p>}
+        </div>
+      )}
 
-      <div className="tp-credit">A tiny-planet experiment · built by An App Idea LLC</div>
+      {credit && <div className={styles.credit}>{credit}</div>}
 
-      <div className="tp-hint" style={{ opacity: hintVisible ? 1 : 0 }}>
-        drag to look around · WASD to walk
+      {/* Device-neutral wording: this renders on touch as well, where WASD means nothing. */}
+      <div className={styles.hint} style={{ opacity: hintVisible ? 1 : 0 }}>
+        drag to look around · d-pad or WASD to walk
       </div>
     </>
   );

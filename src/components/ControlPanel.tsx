@@ -1,4 +1,5 @@
-import { phaseLabel } from '../world/engine';
+import { phaseLabel } from '../world/palette';
+import styles from './TinyPlanet.module.css';
 
 type Props = {
   open: boolean;
@@ -27,18 +28,18 @@ export function ControlPanel({
 }: Props) {
   return (
     <>
-      <button className="tp-toggle" onClick={onToggle} aria-expanded={open}>
+      <button type="button" className={styles.toggle} onClick={onToggle} aria-expanded={open}>
         {open ? 'Hide controls' : 'Controls'}
       </button>
 
       {open && (
-        <div className="tp-panel">
-          <div className="tp-panel-hd">Controls</div>
+        <div className={styles.panel}>
+          <div className={styles.panelHeading}>Controls</div>
 
-          <div className="tp-row">
-            <div className="tp-lbl">
+          <div className={styles.row}>
+            <div className={styles.label}>
               <label htmlFor="tp-cur">Curvature</label>
-              <span className="tp-val">{curvature.toFixed(4)}</span>
+              <span className={styles.value}>{curvature.toFixed(4)}</span>
             </div>
             <input
               id="tp-cur"
@@ -49,13 +50,13 @@ export function ControlPanel({
               value={curvature}
               onChange={(e) => onCurvature(parseFloat(e.target.value))}
             />
-            <div className="tp-hint-sm">0 = flat world · higher = smaller planet</div>
+            <div className={styles.subHint}>0 = flat world · higher = smaller planet</div>
           </div>
 
-          <div className="tp-row">
-            <div className="tp-lbl">
+          <div className={styles.row}>
+            <div className={styles.label}>
               <label htmlFor="tp-time">Time of day</label>
-              <span className="tp-val">{phaseLabel(timeOfDay)}</span>
+              <span className={styles.value}>{phaseLabel(timeOfDay)}</span>
             </div>
             <input
               id="tp-time"
@@ -66,13 +67,13 @@ export function ControlPanel({
               value={timeOfDay}
               onChange={(e) => onTime(parseFloat(e.target.value))}
             />
-            <div className="tp-hint-sm">dawn · noon · dusk · night</div>
+            <div className={styles.subHint}>dawn · noon · dusk · night</div>
           </div>
 
-          <div className="tp-row">
-            <div className="tp-lbl">
+          <div className={styles.row}>
+            <div className={styles.label}>
               <label htmlFor="tp-dist">Camera distance</label>
-              <span className="tp-val">{cameraDistance.toFixed(1)}</span>
+              <span className={styles.value}>{cameraDistance.toFixed(1)}</span>
             </div>
             <input
               id="tp-dist"
@@ -85,13 +86,8 @@ export function ControlPanel({
             />
           </div>
 
-          <label className="tp-check">
-            <input
-              type="checkbox"
-              checked={autoWander}
-              onChange={(e) => onWander(e.target.checked)}
-            />{' '}
-            Auto-wander
+          <label className={styles.check}>
+            <input type="checkbox" checked={autoWander} onChange={(e) => onWander(e.target.checked)} /> Auto-wander
           </label>
         </div>
       )}
